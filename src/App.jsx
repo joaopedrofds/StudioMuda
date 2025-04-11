@@ -1,10 +1,12 @@
-import CadastroFuncionario from "./pages/CadastroFuncionario.jsx";
+// src/App.jsx
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <div>
-      <CadastroFuncionario />
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
