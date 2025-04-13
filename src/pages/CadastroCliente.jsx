@@ -3,6 +3,8 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import FormField from "../components/FormField";
+import Button from "../components/Button";
 
 const schema = z.object({
   nome: z.string().min(1, "Nome é obrigatório"),
@@ -27,32 +29,52 @@ function CadastroCliente() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Cadastro de Cliente</h2>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <input placeholder="Nome" {...register("nome")} />
-        {errors.nome && <span>{errors.nome.message}</span>}
-
-        <input placeholder="CPF ou CNPJ" {...register("cpfCnpj")} />
-        {errors.cpfCnpj && <span>{errors.cpfCnpj.message}</span>}
-
-        <input placeholder="Endereço" {...register("endereco")} />
-        {errors.endereco && <span>{errors.endereco.message}</span>}
-
-        <input placeholder="Telefone Celular" {...register("telefoneCelular")} />
-        {errors.telefoneCelular && <span>{errors.telefoneCelular.message}</span>}
-
-        <input placeholder="Telefone Fixo (opcional)" {...register("telefoneFixo")} />
-
-        <input placeholder="Email" {...register("email")} />
-        {errors.email && <span>{errors.email.message}</span>}
-
-        <button type="submit">Cadastrar Cliente</button>
+    <div className="container mx-auto p-8">
+      <h2 className="text-3xl font-bold mb-6 text-center">Cadastro de Cliente</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-white p-6 rounded-lg shadow-md">
+        <FormField
+          label="Nome"
+          placeholder="Nome"
+          register={register("nome")}
+          error={errors.nome?.message}
+          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600"
+        />
+        <FormField
+          label="CPF ou CNPJ"
+          placeholder="CPF ou CNPJ"
+          register={register("cpfCnpj")}
+          error={errors.cpfCnpj?.message}
+        />
+        <FormField
+          label="Endereço"
+          placeholder="Endereço"
+          register={register("endereco")}
+          error={errors.endereco?.message}
+        />
+        <FormField
+          label="Telefone Celular"
+          placeholder="(XX) XXXXX-XXXX"
+          register={register("telefoneCelular")}
+          error={errors.telefoneCelular?.message}
+        />
+        <FormField
+          label="Telefone Fixo (opcional)"
+          placeholder="(XX) XXXX-XXXX"
+          register={register("telefoneFixo")}
+        />
+        <FormField
+          label="Email"
+          placeholder="seuemail@exemplo.com"
+          register={register("email")}
+          error={errors.email?.message}
+        />
+        <Button type="submit" variant="primary">
+          Cadastrar Cliente
+        </Button>
       </form>
     </div>
   );
 }
-
 
 export default CadastroCliente;
 

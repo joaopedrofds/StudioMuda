@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import bcrypt from 'bcryptjs';
+import FormField from '../components/FormField';
+import Button from "../components/Button";
 
 const schema = z.object({
   matricula: z.string().min(1, 'Obrigatório'),
@@ -40,67 +42,108 @@ export default function CadastroFuncionario() {
   };
 
   return (
-    <div className="container">
-      <h2>Cadastro de Funcionário</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Matrícula</label>
-        <input {...register('matricula')} />
-        <p>{errors.matricula?.message}</p>
-
-        <label>Nome completo</label>
-        <input {...register('nome')} />
-        <p>{errors.nome?.message}</p>
-
-        <label>CPF</label>
-        <input {...register('cpf')} />
-        <p>{errors.cpf?.message}</p>
-
-        <label>RG</label>
-        <input {...register('rg')} />
-        <p>{errors.rg?.message}</p>
-
-        <label>Telefone</label>
-        <input {...register('telefone')} placeholder="(99) 99999-9999" />
-        <p>{errors.telefone?.message}</p>
-
-        <label>Rua</label>
-        <input {...register('endereco.rua')} />
-
-        <label>Número</label>
-        <input {...register('endereco.numero')} />
-
-        <label>Bairro</label>
-        <input {...register('endereco.bairro')} />
-
-        <label>Cidade</label>
-        <input {...register('endereco.cidade')} />
-
-        <label>E-mail</label>
-        <input {...register('email')} />
-        <p>{errors.email?.message}</p>
-
-        <label>Função</label>
-        <select {...register('funcao')}>
-          <option value="">Selecione</option>
-          <option value="Diretor">Diretor</option>
-          <option value="Auxiliar">Auxiliar</option>
-          <option value="Estoquista">Estoquista</option>
-        </select>
-
-        <label>Login</label>
-        <input {...register('login')} />
-
-        <label>Senha</label>
-        <div className="password-wrapper">
-          <input type={showPassword ? 'text' : 'password'} {...register('senha')} />
-          <button type="button" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? 'Ocultar' : 'Mostrar'}
-          </button>
+    <div className="container mx-auto p-8">
+      <h2 className="text-3xl font-bold mb-6 text-center">Cadastro de Funcionário</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-white p-6 rounded-lg shadow-md">
+        <FormField
+          label="Matrícula"
+          placeholder="Matrícula"
+          register={register('matricula')}
+          error={errors.matricula?.message}
+        />
+        <FormField
+          label="Nome completo"
+          placeholder="Nome completo"
+          register={register('nome')}
+          error={errors.nome?.message}
+        />
+        <FormField
+          label="CPF"
+          placeholder="CPF"
+          register={register('cpf')}
+          error={errors.cpf?.message}
+        />
+        <FormField
+          label="RG"
+          placeholder="RG"
+          register={register('rg')}
+          error={errors.rg?.message}
+        />
+        <FormField
+          label="Telefone"
+          placeholder="(99) 99999-9999"
+          register={register('telefone')}
+          error={errors.telefone?.message}
+        />
+        <fieldset className="border border-gray-300 p-4 rounded-md">
+          <legend className="text-sm font-medium text-gray-700">Endereço</legend>
+          <FormField
+            label="Rua"
+            placeholder="Rua"
+            register={register('endereco.rua')}
+          />
+          <FormField
+            label="Número"
+            placeholder="Número"
+            register={register('endereco.numero')}
+          />
+          <FormField
+            label="Bairro"
+            placeholder="Bairro"
+            register={register('endereco.bairro')}
+          />
+          <FormField
+            label="Cidade"
+            placeholder="Cidade"
+            register={register('endereco.cidade')}
+          />
+        </fieldset>
+        <FormField
+          label="E-mail"
+          placeholder="E-mail"
+          register={register('email')}
+          error={errors.email?.message}
+        />
+        <FormField
+          label="Função"
+          type="select"
+          register={register('funcao')}
+          options={[
+            { value: 'Diretor', label: 'Diretor' },
+            { value: 'Auxiliar', label: 'Auxiliar' },
+            { value: 'Estoquista', label: 'Estoquista' },
+          ]}
+          error={errors.funcao?.message}
+          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600"
+        />
+        <FormField
+          label="Login"
+          placeholder="Login"
+          register={register('login')}
+        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Senha</label>
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              {...register('senha')}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 px-3 py-2 text-sm text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? 'Ocultar' : 'Mostrar'}
+            </button>
+          </div>
+          <p className="text-red-500 text-sm mt-1">{errors.senha?.message}</p>
         </div>
-
-        <button type="submit">Cadastrar</button>
+        <Button type="submit" variant="primary">
+          Cadastrar
+        </Button>
       </form>
     </div>
   );
-} 
+}
 

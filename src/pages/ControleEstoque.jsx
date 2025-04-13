@@ -31,26 +31,26 @@ function ControleEstoque() {
   const [estoque, setEstoque] = useState(mockEstoque);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Controle de Estoque</h1>
-      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
+    <div className="container mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Controle de Estoque</h1>
+      <table className="w-full border-collapse border border-gray-300">
         <thead>
-          <tr style={{ background: "#f0f0f0" }}>
-            <th style={thStyle}>Item</th>
-            <th style={thStyle}>Tipo</th>
-            <th style={thStyle}>Disponível</th>
-            <th style={thStyle}>Solicitado</th>
-            <th style={thStyle}>Retirado</th>
+          <tr className="bg-gray-100">
+            <th className="border border-gray-300 px-4 py-2 text-left font-medium text-gray-700">Item</th>
+            <th className="border border-gray-300 px-4 py-2 text-left font-medium text-gray-700">Tipo</th>
+            <th className="border border-gray-300 px-4 py-2 text-left font-medium text-gray-700">Disponível</th>
+            <th className="border border-gray-300 px-4 py-2 text-left font-medium text-gray-700">Solicitado</th>
+            <th className="border border-gray-300 px-4 py-2 text-left font-medium text-gray-700">Retirado</th>
           </tr>
         </thead>
         <tbody>
           {estoque.map((item) => (
-            <tr key={item.id}>
-              <td style={tdStyle}>{item.nome}</td>
-              <td style={tdStyle}>{item.tipo}</td>
-              <td style={tdStyle}>{item.quantidadeDisponivel}</td>
-              <td style={tdStyle}>{item.quantidadeSolicitada}</td>
-              <td style={tdStyle}>{item.quantidadeRetirada}</td>
+            <tr key={item.id} className="odd:bg-white even:bg-gray-50">
+              <td className="border border-gray-300 px-4 py-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">{item.nome}</td>
+              <td className="border border-gray-300 px-4 py-2 text-gray-700">{item.tipo}</td>
+              <td className="border border-gray-300 px-4 py-2 text-gray-700">{item.quantidadeDisponivel}</td>
+              <td className="border border-gray-300 px-4 py-2 text-gray-700">{item.quantidadeSolicitada}</td>
+              <td className="border border-gray-300 px-4 py-2 text-gray-700">{item.quantidadeRetirada}</td>
             </tr>
           ))}
         </tbody>
@@ -58,17 +58,5 @@ function ControleEstoque() {
     </div>
   );
 }
-
-const thStyle = {
-  padding: "8px",
-  border: "1px solid #ccc",
-  fontWeight: "bold",
-  textAlign: "left",
-};
-
-const tdStyle = {
-  padding: "8px",
-  border: "1px solid #ccc",
-};
 
 export default ControleEstoque;
