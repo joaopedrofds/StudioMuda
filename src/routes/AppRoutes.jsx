@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom"; // Importando Navigate
 import Home from "../pages/Home";
 import CadastroFuncionario from "../pages/CadastroFuncionario";
 import CadastroCliente from "../pages/CadastroCliente";
@@ -19,6 +19,7 @@ function AppRoutes() {
       {user ? (
         // Rotas protegidas
         <>
+          <Route path="/" element={<Navigate to="/home" />} /> {/* Redireciona para /home */}
           <Route path="/home" element={<Home />} />
           <Route path="/cadastro-funcionario" element={<CadastroFuncionario />} />
           <Route path="/cadastro-cliente" element={<CadastroCliente />} />
@@ -30,6 +31,7 @@ function AppRoutes() {
       ) : (
         // Rotas públicas
         <>
+          <Route path="/" element={<Navigate to="/login" />} /> {/* Redireciona para /login */}
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
         </>
